@@ -363,16 +363,7 @@ input[type="text"]:focus, select:focus {
     margin-top: 2rem;
     flex-wrap: wrap;
 }
-button:disabled {
-  background-color: #cccccc; /* Um cinza mais claro */
-  opacity: 0.6;             /* Deixa o botão semi-transparente */
-  cursor: not-allowed;      /* Muda o cursor para um ícone de "proibido" */
-}
-button:disabled:hover{
-  background-color: #cccccc; /* Um cinza mais claro */
-  opacity: 0.6;             /* Deixa o botão semi-transparente */
-  cursor: not-allowed;      /* Muda o cursor para um ícone de "proibido" */
-}
+
 .action-btn {
     color: white;
     font-weight: 600;

@@ -118,9 +118,7 @@ const calculateMonthlySalary = () => {
     document.getElementById('netSalaryResult').textContent = formatCurrency(netSalary);
 
     // Armazena a média de variáveis para a aba de Férias
-    lastVariableAverage = dsrBase; // dsrBase contém a soma das verbas variáveis do mês
-    document.getElementById('variableAverageDisplay').textContent = formatCurrency(lastVariableAverage);
-
+    lastVariableAverage = dsrBase; 
 
     // Armazenar dados para o resumo
     summaryData = {
@@ -136,13 +134,14 @@ const calculateMonthlySalary = () => {
 const calculateVacation = () => {
     const baseSalary = parseInput(document.getElementById('baseSalary').value);
     const vacationDays = parseInt(document.getElementById('vacationDays').value);
-    const variableAverage = lastVariableAverage; // Usa o valor automático
+    const variableAverage = parseInput(document.getElementById('variableAverage').value);
 
     // Cálculo do valor das férias
     const vacationPay = (baseSalary / 30) * vacationDays;
     const vacationBonus = vacationPay / 3;
     const variablePayOnVacation = (variableAverage / 30) * vacationDays;
     const grossVacationPay = vacationPay + vacationBonus + variablePayOnVacation;
+    const fgtsOnVacation = grossVacationPay * 0.08;
     
     const { discount: inssOnVacation } = calculateINSS(grossVacationPay);
     const { discount: irrfOnVacation } = calculateIRRF(grossVacationPay - inssOnVacation);
@@ -232,6 +231,10 @@ const showMonthlyReport = () => {
                         <div class="report-line">
                             <span class="label">Total Vencimentos</span>
                             <span class="value vencimento">${formatCurrency(summaryData.totalEarnings)}</span>
+                        </div>
+                        <div class="report-line">
+                            <span class="label">FGTS do Mês (Depósito)</span>
+                            <span class="value">${formatCurrency(summaryData.totalEarnings * 0.08)}</span>
                         </div>
                         <div class="report-line">
                             <span class="label">Total Descontos</span>

@@ -195,10 +195,10 @@
                         </select>
                     </div>
                     <div class="input-group">
-                        <label>Média de Verbas Variáveis (Automático)</label>
-                        <div id="variableAverageDisplay" class="auto-value-display">R$ 0,00</div>
+                        <label for="variableAverage">Média de Verbas Variáveis (últimos 12 meses)</label>
+                        <input type="text" id="variableAverage" placeholder="Ex: 350.00" inputmode="decimal">
                         <div class="tooltip-icon">i
-                            <span class="tooltip-text">Este valor é calculado automaticamente com base nos vencimentos variáveis (HE, Ad. Noturno) informados na aba "Salário Mensal".</span>
+                            <span class="tooltip-text">Informe a média mensal de horas extras, adicionais e comissões dos últimos 12 meses. Isso impacta o valor das férias.</span>
                         </div>
                     </div>
                 </div>
@@ -216,7 +216,7 @@
                     </div>
                 </div>
                 <div class="report-button-container">
-                    <button id="exportVacationBtn" class="action-btn export-btn" disabled>Exportar Planilha</button>
+                    <button id="exportVacationBtn" class="action-btn export-btn">Exportar Planilha</button>
                     <button id="generateVacationReportBtn" class="action-btn generate-btn">Gerar Resumo de Férias</button>
                 </div>
             </div>
@@ -266,13 +266,13 @@
                     <p id="thirteenthTotalNet" class="value">R$ 0,00</p>
                 </div>
                  <div class="report-button-container">
-                    <button id="export13thBtn" class="action-btn export-btn" disabled>Exportar Planilha</button>
+                    <button id="export13thBtn" class="action-btn export-btn">Exportar Planilha</button>
                     <button id="generate13thReportBtn" class="action-btn generate-btn">Gerar Resumo do 13º</button>
                 </div>
             </div>
         </div>
 
-        <!-- Botão de Ação Global -->
+        <!-- Botões de Ação Globais -->
         <div class="report-button-container">
             <button id="clearFieldsBtn" class="action-btn clear-btn">Limpar Campos</button>
         </div>
