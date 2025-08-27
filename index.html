@@ -44,23 +44,73 @@
                 <h2>Vencimentos</h2>
                 <div class="input-group">
                     <label for="baseSalary">Salário Base (R$)</label>
-                    <input type="text" id="baseSalary" placeholder="Ex: 3000.00">
+                    <input type="text" id="baseSalary" placeholder="Ex: 3000.00" inputmode="decimal">
                 </div>
                 <div class="input-group">
-                    <label for="overtimeHours">Horas Extras (75%)</label>
-                    <input type="text" id="overtimeHours" placeholder="Ex: 10">
+                    <label for="overtimeHours">Horas Extras Diurnas</label>
+                    <input type="text" id="overtimeHours" placeholder="Ex: 10" inputmode="decimal">
+                </div>
+                 <div class="input-group">
+                    <label for="overtimePercentage">Percentual Hora Extra (%)</label>
+                    <input type="text" id="overtimePercentage" value="75" inputmode="decimal">
+                     <div class="tooltip-icon">i
+                        <span class="tooltip-text">Por lei, o mínimo é 50% para dias de semana e 100% para domingos/feriados. Verifique o valor usado pela sua empresa.</span>
+                    </div>
                 </div>
             </div>
+            <div class="input-card">
+                <h2>Adicional Noturno</h2>
+                <div class="input-group">
+                    <label for="nightShiftHours">Horas Noturnas</label>
+                    <input type="text" id="nightShiftHours" placeholder="Ex: 20" inputmode="decimal">
+                </div>
+                <div class="input-group">
+                    <label for="nightOvertimeHours">Horas Extras Noturnas</label>
+                    <input type="text" id="nightOvertimeHours" placeholder="Ex: 5" inputmode="decimal">
+                </div>
+                <div class="input-group">
+                    <label for="nightShiftPercentage">Percentual Ad. Noturno (%)</label>
+                    <input type="text" id="nightShiftPercentage" value="20" inputmode="decimal">
+                    <div class="tooltip-icon">i
+                        <span class="tooltip-text">O padrão CLT é 20%. Este percentual é aplicado sobre o valor da hora normal para calcular o adicional noturno e a hora extra noturna.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card para Bonificação -->
+        <div class="inputs-grid" style="grid-template-columns: 1fr;">
+            <div class="input-card">
+                <h2>Bonificação (Exemplo)</h2>
+                <div class="inputs-grid">
+                    <div class="input-group">
+                        <label for="trainingValue">Valor Total do Treinamento (R$)</label>
+                        <input type="text" id="trainingValue" placeholder="Ex: 2000.00" inputmode="decimal">
+                    </div>
+                    <div class="input-group">
+                        <label for="trainingDuration">Duração Total do Treinamento (h)</label>
+                        <input type="text" id="trainingDuration" placeholder="Ex: 4" inputmode="decimal">
+                    </div>
+                    <div class="input-group">
+                        <label for="trainingHoursGiven">Suas Horas de Treinamento (h)</label>
+                        <input type="text" id="trainingHoursGiven" placeholder="Ex: 2" inputmode="decimal">
+                        <div class="tooltip-icon">i
+                            <span class="tooltip-text">Exemplo de bonificação: 10% sobre o valor/hora do treinamento. Este valor é somado ao bruto, mas não incide no cálculo do DSR.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Card para Descontos Adicionais -->
+        <div class="inputs-grid" style="grid-template-columns: 1fr;">
             <div class="input-card">
                 <h2>Descontos Adicionais</h2>
                 <div class="input-group">
                     <label for="healthInsurance">Convênio Médico (R$)</label>
-                    <input type="text" id="healthInsurance" placeholder="Ex: 150.00">
+                    <input type="text" id="healthInsurance" placeholder="Ex: 150.00" inputmode="decimal">
                 </div>
-                <!-- Container para descontos dinâmicos -->
-                <div id="otherDiscountsContainer">
-                    <!-- Linhas de desconto serão adicionadas aqui via JS -->
-                </div>
+                <div id="otherDiscountsContainer"></div>
                 <button id="addDiscountBtn" class="add-btn">+ Adicionar Outro Desconto</button>
             </div>
         </div>
@@ -72,14 +122,14 @@
                 <div class="inputs-grid">
                     <div class="input-group">
                         <label for="workingDays">Dias Úteis (seg. a sáb.)</label>
-                        <input type="text" id="workingDays" placeholder="Ex: 25">
+                        <input type="text" id="workingDays" placeholder="Ex: 25" inputmode="decimal">
                         <div class="tooltip-icon">i
-                            <span class="tooltip-text">DSR (Descanso Semanal Remunerado) é o reflexo das horas extras nos seus dias de folga. Informe os dias úteis do mês para o cálculo.</span>
+                            <span class="tooltip-text">DSR (Descanso Semanal Remunerado) é o reflexo das verbas variáveis (horas extras, adicional noturno) nos seus dias de folga.</span>
                         </div>
                     </div>
                     <div class="input-group">
                         <label for="sundaysAndHolidays">Domingos e Feriados</label>
-                        <input type="text" id="sundaysAndHolidays" placeholder="Ex: 5">
+                        <input type="text" id="sundaysAndHolidays" placeholder="Ex: 5" inputmode="decimal">
                     </div>
                 </div>
             </div>
@@ -89,34 +139,20 @@
         <!-- Seção de Resultados -->
         <div class="results-section">
             <h2>Resultado do Cálculo</h2>
-            
             <div class="result-grid">
                 <div class="result-item">
-                    <p class="label">Salário Bruto</p>
+                    <p class="label">Salário Base</p>
                     <p id="grossSalaryResult" class="value">R$ 0,00</p>
                 </div>
                 <div class="result-item">
-                    <p class="label">Horas Extras (75%)</p>
-                    <p id="overtimeValueResult" class="value">R$ 0,00</p>
+                    <p class="label">Total Vencimentos</p>
+                    <p id="totalEarningsResult" class="value">R$ 0,00</p>
                 </div>
                 <div class="result-item">
-                    <p class="label">DSR s/ Horas Extras</p>
-                    <p id="dsrResult" class="value">R$ 0,00</p>
-                </div>
-                <div class="result-item">
-                    <p class="label desconto">Desconto INSS</p>
-                    <p id="inssResult" class="value desconto">R$ 0,00</p>
-                </div>
-                <div class="result-item">
-                    <p class="label desconto">Desconto IRRF</p>
-                    <p id="irrfResult" class="value desconto">R$ 0,00</p>
-                </div>
-                 <div class="result-item">
                     <p class="label desconto">Total Descontos</p>
                     <p id="totalDiscountsResult" class="value desconto">R$ 0,00</p>
                 </div>
             </div>
-
             <div class="net-salary-highlight">
                 <p class="label">SALÁRIO LÍQUIDO</p>
                 <p id="netSalaryResult" class="value">R$ 0,00</p>
@@ -142,37 +178,11 @@
                 <div class="report-grid">
                     <div class="report-section">
                         <h3>Vencimentos</h3>
-                        <div class="report-line">
-                            <span class="label">Salário Base</span>
-                            <span id="reportBaseSalary" class="value"></span>
-                        </div>
-                        <div class="report-line">
-                            <span class="label">Horas Extras (75%)</span>
-                            <span id="reportOvertimeValue" class="value"></span>
-                        </div>
-                        <div class="report-line">
-                            <span class="label">DSR s/ Horas Extras</span>
-                            <span id="reportDsrValue" class="value"></span>
-                        </div>
+                        <div id="reportEarningsContainer"></div>
                     </div>
                     <div class="report-section">
                         <h3>Descontos</h3>
-                        <div class="report-line">
-                            <span class="label">INSS</span>
-                            <span id="reportInss" class="value desconto"></span>
-                        </div>
-                         <div class="report-line">
-                            <span class="label">IRRF</span>
-                            <span id="reportIrrf" class="value desconto"></span>
-                        </div>
-                        <div class="report-line">
-                            <span class="label">Convênio Médico</span>
-                            <span id="reportHealthInsurance" class="value desconto"></span>
-                        </div>
-                        <!-- Container para descontos dinâmicos no relatório -->
-                        <div id="reportOtherDiscountsContainer">
-                            <!-- Linhas de desconto do relatório serão adicionadas aqui -->
-                        </div>
+                        <div id="reportDiscountsContainer"></div>
                     </div>
                 </div>
                  <div class="report-grid">
@@ -194,16 +204,24 @@
                             <span id="reportWorkload" class="value"></span>
                         </div>
                         <div class="report-line">
-                            <span class="label">Qtd. Horas Extras</span>
+                            <span class="label">Qtd. HE Diurnas</span>
                             <span id="reportOvertimeHours" class="value"></span>
+                        </div>
+                        <div class="report-line">
+                            <span class="label">Qtd. HE Noturnas</span>
+                            <span id="reportNightOvertimeHours" class="value"></span>
                         </div>
                          <div class="report-line">
                             <span class="label">Valor Hora Normal</span>
                             <span id="reportHourlyRate" class="value"></span>
                         </div>
                          <div class="report-line">
-                            <span class="label">Valor Hora Extra (75%)</span>
+                            <span class="label">Valor HE Diurna</span>
                             <span id="reportOvertimeRate" class="value"></span>
+                        </div>
+                         <div class="report-line">
+                            <span class="label">Valor HE Noturna</span>
+                            <span id="reportNightOvertimeRate" class="value"></span>
                         </div>
                     </div>
                 </div>
@@ -231,12 +249,10 @@
         </div>
     </div>
     
-    <!-- NOVO: Rodapé -->
     <footer class="page-footer">
         Desenvolvido por João Murat, 2025.
     </footer>
     
-    <!-- Link para o arquivo JavaScript externo -->
     <script src="script.js"></script>
 </body>
 </html>
