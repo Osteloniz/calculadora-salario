@@ -9,7 +9,8 @@ body {
     font-family: 'Inter', sans-serif;
     background-color: #f3f4f6;
     display: flex;
-    align-items: flex-start; /* Alinha no topo para telas pequenas */
+    flex-direction: column; /* Organiza body em coluna para o rodapé */
+    align-items: center; 
     justify-content: center;
     min-height: 100vh;
     padding: 1rem;
@@ -24,6 +25,7 @@ body {
     border-radius: 1rem;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     padding: 2rem;
+    margin-bottom: 2rem; /* Espaço para o rodapé */
 }
 
 /* Cabeçalho */
@@ -432,6 +434,16 @@ input[type="text"]:focus, select:focus {
     background-color: #2563eb;
 }
 
+/* NOVO: Estilo do Rodapé */
+.page-footer {
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+
 /* --- AJUSTES DE RESPONSIVIDADE --- */
 @media (min-width: 768px) {
     .inputs-grid {
@@ -445,6 +457,7 @@ input[type="text"]:focus, select:focus {
 @media (max-width: 640px) {
     .container {
         padding: 1.5rem;
+        margin-bottom: 1rem;
     }
     .header h1 {
         font-size: 1.5rem;
@@ -491,8 +504,8 @@ input[type="text"]:focus, select:focus {
         border: 1px solid #ccc;
         overflow: visible;
     }
-    .modal-header, .report-footer .actions {
-        display: none; /* Esconde o cabeçalho e o botão de imprimir na impressão */
+    .modal-header, .report-footer .actions, .page-footer {
+        display: none; /* Esconde o cabeçalho, o botão de imprimir e o rodapé na impressão */
     }
     .report-footer {
         border-top: 1px solid #ccc;
