@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Salário Líquido</title>
+    <!-- Link para a fonte do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Link para o arquivo de estilos CSS externo -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="header">
+            <h1>Calculadora de Salário Líquido</h1>
+            <p>Insira os valores para simular o seu salário líquido mensal.</p>
+        </div>
+
+        <!-- Card para Jornada de Trabalho -->
+        <div class="inputs-grid" style="grid-template-columns: 1fr;">
+            <div class="input-card">
+                <h2>Jornada de Trabalho</h2>
+                <div class="input-group">
+                    <label for="workload">Selecione sua carga horária mensal</label>
+                    <select id="workload">
+                        <option value="220">44h semanais (Divisor 220)</option>
+                        <option value="200">40h semanais (Divisor 200)</option>
+                        <option value="180">36h semanais (Divisor 180)</option>
+                        <option value="150">30h semanais (Divisor 150)</option>
+                        <option value="120">24h semanais (Divisor 120)</option>
+                    </select>
+                    <div class="tooltip-icon">i
+                        <span class="tooltip-text" id="workloadTooltip">Selecione a jornada de trabalho definida em seu contrato. O 'divisor' é o número de horas usado para calcular o valor da sua hora normal (Salário Base / Divisor).</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção de Entradas -->
+        <div class="inputs-grid">
+            <div class="input-card">
+                <h2>Vencimentos</h2>
+                <div class="input-group">
+                    <label for="baseSalary">Salário Base (R$)</label>
+                    <input type="text" id="baseSalary" placeholder="Ex: 3000.00">
+                </div>
+                <div class="input-group">
+                    <label for="overtimeHours">Horas Extras (75%)</label>
+                    <input type="text" id="overtimeHours" placeholder="Ex: 10">
+                </div>
+            </div>
+            <div class="input-card">
+                <h2>Descontos Adicionais</h2>
+                <div class="input-group">
+                    <label for="healthInsurance">Convênio Médico (R$)</label>
+                    <input type="text" id="healthInsurance" placeholder="Ex: 150.00">
+                </div>
+                <!-- Container para descontos dinâmicos -->
+                <div id="otherDiscountsContainer">
+                    <!-- Linhas de desconto serão adicionadas aqui via JS -->
+                </div>
+                <button id="addDiscountBtn" class="add-btn">+ Adicionar Outro Desconto</button>
+            </div>
+        </div>
+        
+        <!-- Card para Apuração do Mês -->
+        <div class="inputs-grid" style="grid-template-columns: 1fr;">
+            <div class="input-card">
+                <h2>Apuração Mensal (para cálculo do DSR)</h2>
+                <div class="inputs-grid">
+                    <div class="input-group">
+                        <label for="workingDays">Dias Úteis (seg. a sáb.)</label>
+                        <input type="text" id="workingDays" placeholder="Ex: 25">
+                        <div class="tooltip-icon">i
+                            <span class="tooltip-text">DSR (Descanso Semanal Remunerado) é o reflexo das horas extras nos seus dias de folga. Informe os dias úteis do mês para o cálculo.</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="sundaysAndHolidays">Domingos e Feriados</label>
+                        <input type="text" id="sundaysAndHolidays" placeholder="Ex: 5">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Seção de Resultados -->
+        <div class="results-section">
+            <h2>Resultado do Cálculo</h2>
+            
+            <div class="result-grid">
+                <div class="result-item">
+                    <p class="label">Salário Bruto</p>
+                    <p id="grossSalaryResult" class="value">R$ 0,00</p>
+                </div>
+                <div class="result-item">
+                    <p class="label">Horas Extras (75%)</p>
+                    <p id="overtimeValueResult" class="value">R$ 0,00</p>
+                </div>
+                <div class="result-item">
+                    <p class="label">DSR s/ Horas Extras</p>
+                    <p id="dsrResult" class="value">R$ 0,00</p>
+                </div>
+                <div class="result-item">
+                    <p class="label desconto">Desconto INSS</p>
+                    <p id="inssResult" class="value desconto">R$ 0,00</p>
+                </div>
+                <div class="result-item">
+                    <p class="label desconto">Desconto IRRF</p>
+                    <p id="irrfResult" class="value desconto">R$ 0,00</p>
+                </div>
+                 <div class="result-item">
+                    <p class="label desconto">Total Descontos</p>
+                    <p id="totalDiscountsResult" class="value desconto">R$ 0,00</p>
+                </div>
+            </div>
+
+            <div class="net-salary-highlight">
+                <p class="label">SALÁRIO LÍQUIDO</p>
+                <p id="netSalaryResult" class="value">R$ 0,00</p>
+            </div>
+        </div>
+        
+        <!-- Botões de Ação -->
+        <div class="report-button-container">
+            <button id="clearFieldsBtn" class="action-btn clear-btn">Limpar Campos</button>
+            <button id="generateReportBtn" class="action-btn generate-btn">Gerar Resumo (Holerite)</button>
+        </div>
+
+    </div>
+
+    <!-- Modal do Holerite -->
+    <div id="reportModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Resumo do Cálculo</h2>
+                <button id="closeModalBtn" class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="report-grid">
+                    <div class="report-section">
+                        <h3>Vencimentos</h3>
+                        <div class="report-line">
+                            <span class="label">Salário Base</span>
+                            <span id="reportBaseSalary" class="value"></span>
+                        </div>
+                        <div class="report-line">
+                            <span class="label">Horas Extras (75%)</span>
+                            <span id="reportOvertimeValue" class="value"></span>
+                        </div>
+                        <div class="report-line">
+                            <span class="label">DSR s/ Horas Extras</span>
+                            <span id="reportDsrValue" class="value"></span>
+                        </div>
+                    </div>
+                    <div class="report-section">
+                        <h3>Descontos</h3>
+                        <div class="report-line">
+                            <span class="label">INSS</span>
+                            <span id="reportInss" class="value desconto"></span>
+                        </div>
+                         <div class="report-line">
+                            <span class="label">IRRF</span>
+                            <span id="reportIrrf" class="value desconto"></span>
+                        </div>
+                        <div class="report-line">
+                            <span class="label">Convênio Médico</span>
+                            <span id="reportHealthInsurance" class="value desconto"></span>
+                        </div>
+                        <!-- Container para descontos dinâmicos no relatório -->
+                        <div id="reportOtherDiscountsContainer">
+                            <!-- Linhas de desconto do relatório serão adicionadas aqui -->
+                        </div>
+                    </div>
+                </div>
+                 <div class="report-grid">
+                    <div class="report-section">
+                        <h3>Bases de Cálculo</h3>
+                        <div class="report-line">
+                            <span class="label">Total Vencimentos</span>
+                            <span id="reportGrossSalary" class="value vencimento"></span>
+                        </div>
+                        <div class="report-line">
+                            <span class="label">Total Descontos</span>
+                            <span id="reportTotalDiscounts" class="value desconto"></span>
+                        </div>
+                    </div>
+                    <div class="report-section">
+                        <h3>Informações Adicionais</h3>
+                        <div class="report-line">
+                            <span class="label">Carga Horária</span>
+                            <span id="reportWorkload" class="value"></span>
+                        </div>
+                        <div class="report-line">
+                            <span class="label">Qtd. Horas Extras</span>
+                            <span id="reportOvertimeHours" class="value"></span>
+                        </div>
+                         <div class="report-line">
+                            <span class="label">Valor Hora Normal</span>
+                            <span id="reportHourlyRate" class="value"></span>
+                        </div>
+                         <div class="report-line">
+                            <span class="label">Valor Hora Extra (75%)</span>
+                            <span id="reportOvertimeRate" class="value"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="report-section" style="grid-column: 1 / -1;">
+                    <h3>Enquadramento de Impostos</h3>
+                    <div class="report-line">
+                        <span class="label">Faixa INSS</span>
+                        <span id="reportInssBracket" class="value"></span>
+                    </div>
+                    <div class="report-line">
+                        <span class="label">Faixa IRRF</span>
+                        <span id="reportIrrfBracket" class="value"></span>
+                    </div>
+                </div>
+                <div class="report-footer">
+                    <div class="total-line">
+                        <span>Valor Líquido a Receber: </span>
+                        <span id="reportNetSalary"></span>
+                    </div>
+                    <div class="actions">
+                        <button id="printReportBtn">Imprimir / Salvar como PDF</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Link para o arquivo JavaScript externo -->
+    <script src="script.js"></script>
+</body>
+</html>

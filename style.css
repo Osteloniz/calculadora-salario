@@ -1,0 +1,500 @@
+/* Reset e Estilos Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f3f4f6;
+    display: flex;
+    align-items: flex-start; /* Alinha no topo para telas pequenas */
+    justify-content: center;
+    min-height: 100vh;
+    padding: 1rem;
+    color: #1f2937;
+}
+
+/* Container Principal */
+.container {
+    width: 100%;
+    max-width: 896px;
+    background-color: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+}
+
+/* Cabeçalho */
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    font-size: 1.875rem;
+    font-weight: 700;
+}
+
+.header p {
+    color: #6b7280;
+    margin-top: 0.5rem;
+}
+
+/* Grid de Inputs */
+.inputs-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.input-card {
+    background-color: #f9fafb;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+}
+
+.input-card h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 1rem;
+}
+
+.input-group {
+    margin-bottom: 1rem;
+    position: relative;
+}
+.input-group:last-child {
+    margin-bottom: 0;
+}
+
+label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #4b5563;
+    margin-bottom: 0.25rem;
+}
+
+input[type="text"], select {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+select {
+     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+}
+
+input[type="text"]:focus, select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+}
+
+/* Estilos para descontos dinâmicos */
+.discount-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-end;
+    margin-top: 1rem;
+}
+.discount-row .input-group {
+    flex-grow: 1;
+    margin-bottom: 0;
+}
+.discount-row .description-field {
+    flex-basis: 60%;
+}
+.discount-row .value-field {
+    flex-basis: 40%;
+}
+.remove-btn, .add-btn {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    flex-shrink: 0;
+}
+.remove-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 1.2rem;
+}
+.add-btn {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    background-color: #22c55e;
+}
+.remove-btn:hover {
+    background-color: #dc2626;
+}
+.add-btn:hover {
+    background-color: #16a34a;
+}
+
+/* Tooltip (ícone de informação) */
+.tooltip-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-color: #9ca3af;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 2px;
+    right: 0;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 250px;
+    background-color: #374151;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #374151 transparent transparent transparent;
+}
+
+.tooltip-icon:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Seção de Resultados */
+.results-section {
+    background-color: #eff6ff;
+    border-top: 4px solid #3b82f6;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    padding: 1.5rem;
+}
+
+.results-section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.result-item {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.result-item .label {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.result-item .value {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.result-item .label.desconto {
+    color: #ef4444;
+}
+
+.result-item .value.desconto {
+    color: #dc2626;
+}
+
+.net-salary-highlight {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #2563eb;
+    border-radius: 0.5rem;
+    text-align: center;
+    color: #ffffff;
+}
+
+.net-salary-highlight .label {
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.net-salary-highlight .value {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-top: 0.25rem;
+}
+
+/* Container dos Botões de Ação */
+.report-button-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.generate-btn {
+    background-color: #16a34a;
+}
+.generate-btn:hover {
+    background-color: #15803d;
+}
+
+.clear-btn {
+    background-color: #6b7280;
+}
+.clear-btn:hover {
+    background-color: #4b5563;
+}
+
+
+/* Estilos do Modal (Holerite) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    padding: 1rem;
+}
+
+.modal-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.3s;
+}
+
+.modal-overlay.visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.modal-header h2 {
+    font-size: 1.5rem;
+}
+
+.modal-close-btn {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #9ca3af;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.report-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.report-section h3 {
+    font-size: 1.1rem;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #f3f4f6;
+    padding-bottom: 0.25rem;
+}
+
+.report-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+.report-line .label {
+    color: #6b7280;
+    margin-right: 0.5rem;
+}
+.report-line .value {
+    text-align: right;
+    font-weight: 500;
+}
+.report-line .value.desconto {
+    color: #dc2626;
+}
+ .report-line .value.vencimento {
+    color: #16a34a;
+}
+
+.report-footer {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
+.report-footer .total-line {
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: right;
+    margin-bottom: 1rem;
+}
+.report-footer .actions {
+    text-align: right;
+}
+#printReportBtn {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+#printReportBtn:hover {
+    background-color: #2563eb;
+}
+
+/* --- AJUSTES DE RESPONSIVIDADE --- */
+@media (min-width: 768px) {
+    .inputs-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    body {
+        align-items: center; /* Centraliza verticalmente em telas maiores */
+    }
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: 1.5rem;
+    }
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    .results-section h2, .modal-header h2 {
+        font-size: 1.25rem;
+    }
+    .net-salary-highlight .value {
+        font-size: 1.875rem;
+    }
+    .report-grid {
+        grid-template-columns: 1fr; /* Coluna única no modal em telas pequenas */
+        gap: 1rem;
+    }
+    .modal-content {
+        padding: 1.5rem;
+    }
+}
+
+/* --- ESTILOS DE IMPRESSÃO --- */
+@media print {
+    body * {
+        visibility: hidden; /* Esconde tudo */
+    }
+    .modal-content, .modal-content * {
+        visibility: visible; /* Mostra apenas o conteúdo do modal */
+    }
+    .modal-overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: none;
+        padding: 0;
+        display: block;
+    }
+    .modal-content {
+        width: 100%;
+        max-width: 100%;
+        max-height: none;
+        border-radius: 0;
+        box-shadow: none;
+        border: 1px solid #ccc;
+        overflow: visible;
+    }
+    .modal-header, .report-footer .actions {
+        display: none; /* Esconde o cabeçalho e o botão de imprimir na impressão */
+    }
+    .report-footer {
+        border-top: 1px solid #ccc;
+    }
+}
