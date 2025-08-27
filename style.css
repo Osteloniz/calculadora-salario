@@ -5,13 +5,17 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #f3f4f6;
+    background-color: #f7f8fa;
     display: flex;
     flex-direction: column; /* Organiza body em coluna para o rodapé */
     align-items: center; 
-    justify-content: center;
+    justify-content: flex-start; /* Alinha no topo */
     min-height: 100vh;
     padding: 1rem;
     color: #1f2937;
@@ -23,7 +27,7 @@ body {
     max-width: 896px;
     background-color: #ffffff;
     border-radius: 1rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
     padding: 2rem;
     margin-bottom: 2rem; /* Espaço para o rodapé */
 }
@@ -31,7 +35,7 @@ body {
 /* Cabeçalho */
 .header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .header h1 {
@@ -44,6 +48,51 @@ body {
     margin-top: 0.5rem;
 }
 
+/* Disclaimer */
+.disclaimer {
+    background-color: #fffbeb;
+    color: #b45309;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    border: 1px solid #fde68a;
+}
+
+/* Navegação por Abas */
+.tab-nav {
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 2px solid #e5e7eb;
+    margin-bottom: 2rem;
+    overflow-x: auto; /* Permite rolagem em telas pequenas */
+}
+.tab-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #6b7280;
+    border-bottom: 3px solid transparent;
+    transform: translateY(2px);
+    transition: color 0.3s, border-color 0.3s;
+    white-space: nowrap; /* Impede que o texto quebre */
+}
+.tab-btn.active {
+    color: #3b82f6;
+    border-bottom-color: #3b82f6;
+}
+.tab-content {
+    display: none;
+}
+.tab-content.active {
+    display: block;
+}
+
+
 /* Grid de Inputs */
 .inputs-grid {
     display: grid;
@@ -54,7 +103,8 @@ body {
 .input-card {
     background-color: #f9fafb;
     padding: 1.5rem;
-    border-radius: 0.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid #e5e7eb;
 }
 
 .input-card h2 {
@@ -82,7 +132,7 @@ label {
 
 input[type="text"], select {
     width: 100%;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1rem;
     background-color: #ffffff;
     border: 1px solid #d1d5db;
     border-radius: 0.5rem;
@@ -90,7 +140,20 @@ input[type="text"], select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    font-size: 1rem;
 }
+
+.auto-value-display {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: #e5e7eb;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    color: #4b5563;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
 
 select {
      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
@@ -103,7 +166,7 @@ select {
 input[type="text"]:focus, select:focus {
     outline: none;
     border-color: #3b82f6;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 /* Estilos para descontos dinâmicos */
@@ -134,13 +197,13 @@ input[type="text"]:focus, select:focus {
     flex-shrink: 0;
 }
 .remove-btn {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
     font-size: 1.2rem;
 }
 .add-btn {
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.75rem;
     margin-top: 1rem;
     background-color: #22c55e;
 }
@@ -154,18 +217,18 @@ input[type="text"]:focus, select:focus {
 /* Tooltip (ícone de informação) */
 .tooltip-icon {
     display: inline-block;
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     background-color: #9ca3af;
     color: white;
     border-radius: 50%;
     text-align: center;
     font-size: 12px;
-    line-height: 16px;
+    line-height: 18px;
     font-weight: bold;
     cursor: pointer;
     position: absolute;
-    top: 2px;
+    top: 0;
     right: 0;
 }
 
@@ -208,8 +271,7 @@ input[type="text"]:focus, select:focus {
 .results-section {
     background-color: #eff6ff;
     border-top: 4px solid #3b82f6;
-    border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
+    border-radius: 0.75rem;
     padding: 1.5rem;
 }
 
@@ -257,7 +319,7 @@ input[type="text"]:focus, select:focus {
     margin-top: 2rem;
     padding: 1.5rem;
     background-color: #2563eb;
-    border-radius: 0.5rem;
+    border-radius: 0.75rem;
     text-align: center;
     color: #ffffff;
 }
@@ -273,6 +335,26 @@ input[type="text"]:focus, select:focus {
     margin-top: 0.25rem;
 }
 
+/* Estilos para resultados de Férias e 13º */
+.result-grid-vacation {
+    display: grid;
+    gap: 1.5rem;
+}
+.result-card {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
+    border: 1px solid #e5e7eb;
+}
+.result-card h3 {
+    font-size: 1.1rem;
+    color: #374151;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #f3f4f6;
+    padding-bottom: 0.5rem;
+}
+
 /* Container dos Botões de Ação */
 .report-button-container {
     display: flex;
@@ -281,7 +363,16 @@ input[type="text"]:focus, select:focus {
     margin-top: 2rem;
     flex-wrap: wrap;
 }
-
+button:disabled {
+  background-color: #cccccc; /* Um cinza mais claro */
+  opacity: 0.6;             /* Deixa o botão semi-transparente */
+  cursor: not-allowed;      /* Muda o cursor para um ícone de "proibido" */
+}
+button:disabled:hover{
+  background-color: #cccccc; /* Um cinza mais claro */
+  opacity: 0.6;             /* Deixa o botão semi-transparente */
+  cursor: not-allowed;      /* Muda o cursor para um ícone de "proibido" */
+}
 .action-btn {
     color: white;
     font-weight: 600;
@@ -289,7 +380,11 @@ input[type="text"]:focus, select:focus {
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
+    font-size: 1rem;
+}
+.action-btn:active {
+    transform: scale(0.98);
 }
 
 .generate-btn {
@@ -304,6 +399,13 @@ input[type="text"]:focus, select:focus {
 }
 .clear-btn:hover {
     background-color: #4b5563;
+}
+
+.export-btn {
+    background-color: #f59e0b;
+}
+.export-btn:hover {
+    background-color: #d97706;
 }
 
 
@@ -390,6 +492,13 @@ input[type="text"]:focus, select:focus {
     padding: 0.25rem 0;
     font-size: 0.9rem;
 }
+.report-line.total-line {
+    font-weight: bold;
+    border-top: 1px solid #e5e7eb;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+}
+
 
 .report-line .label {
     color: #6b7280;
@@ -420,7 +529,8 @@ input[type="text"]:focus, select:focus {
 .report-footer .actions {
     text-align: right;
 }
-#printReportBtn {
+
+.print-btn {
     background-color: #3b82f6;
     color: white;
     padding: 0.6rem 1.2rem;
@@ -430,7 +540,7 @@ input[type="text"]:focus, select:focus {
     font-weight: 500;
     transition: background-color 0.3s;
 }
-#printReportBtn:hover {
+.print-btn:hover {
     background-color: #2563eb;
 }
 
@@ -451,6 +561,9 @@ input[type="text"]:focus, select:focus {
     }
     body {
         align-items: center; /* Centraliza verticalmente em telas maiores */
+    }
+    .result-grid-vacation {
+        grid-template-columns: 1fr 1fr;
     }
 }
 
@@ -482,10 +595,11 @@ input[type="text"]:focus, select:focus {
     body * {
         visibility: hidden; /* Esconde tudo */
     }
-    .modal-content, .modal-content * {
-        visibility: visible; /* Mostra apenas o conteúdo do modal */
+    .modal-overlay.printable .modal-content, 
+    .modal-overlay.printable .modal-content * {
+        visibility: visible; /* Mostra apenas o conteúdo do modal com a classe 'printable' */
     }
-    .modal-overlay {
+    .modal-overlay.printable {
         position: absolute;
         left: 0;
         top: 0;
@@ -495,7 +609,7 @@ input[type="text"]:focus, select:focus {
         padding: 0;
         display: block;
     }
-    .modal-content {
+    .modal-overlay.printable .modal-content {
         width: 100%;
         max-width: 100%;
         max-height: none;

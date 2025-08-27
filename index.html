@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Salário Líquido</title>
+    <title>Calculadora de Salário Completa</title>
     <!-- Link para a fonte do Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Link para o arquivo de estilos CSS externo -->
@@ -14,240 +14,275 @@
     <div class="container">
         
         <div class="header">
-            <h1>Calculadora de Salário Líquido</h1>
-            <p>Insira os valores para simular o seu salário líquido mensal.</p>
+            <h1>Calculadora de Salário Completa</h1>
+            <p>Simule seu salário, férias e 13º de forma detalhada.</p>
         </div>
 
-        <!-- Card para Jornada de Trabalho -->
-        <div class="inputs-grid" style="grid-template-columns: 1fr;">
-            <div class="input-card">
-                <h2>Jornada de Trabalho</h2>
-                <div class="input-group">
-                    <label for="workload">Selecione sua carga horária mensal</label>
-                    <select id="workload">
-                        <option value="220">44h semanais (Divisor 220)</option>
-                        <option value="200">40h semanais (Divisor 200)</option>
-                        <option value="180">36h semanais (Divisor 180)</option>
-                        <option value="150">30h semanais (Divisor 150)</option>
-                        <option value="120">24h semanais (Divisor 120)</option>
-                    </select>
-                    <div class="tooltip-icon">i
-                        <span class="tooltip-text" id="workloadTooltip">Selecione a jornada de trabalho definida em seu contrato. O 'divisor' é o número de horas usado para calcular o valor da sua hora normal (Salário Base / Divisor).</span>
-                    </div>
-                </div>
-            </div>
+        <!-- AVISO DE SIMULAÇÃO -->
+        <div class="disclaimer">
+            <strong>Atenção:</strong> Todos os valores apresentados são uma <strong>simulação</strong>. As regras podem variar conforme acordos sindicais. Consulte sempre seu holerite oficial.
         </div>
 
-        <!-- Seção de Entradas -->
-        <div class="inputs-grid">
-            <div class="input-card">
-                <h2>Vencimentos</h2>
-                <div class="input-group">
-                    <label for="baseSalary">Salário Base (R$)</label>
-                    <input type="text" id="baseSalary" placeholder="Ex: 3000.00" inputmode="decimal">
-                </div>
-                <div class="input-group">
-                    <label for="overtimeHours">Horas Extras Diurnas</label>
-                    <input type="text" id="overtimeHours" placeholder="Ex: 10" inputmode="decimal">
-                </div>
-                 <div class="input-group">
-                    <label for="overtimePercentage">Percentual Hora Extra (%)</label>
-                    <input type="text" id="overtimePercentage" value="75" inputmode="decimal">
-                     <div class="tooltip-icon">i
-                        <span class="tooltip-text">Por lei, o mínimo é 50% para dias de semana e 100% para domingos/feriados. Verifique o valor usado pela sua empresa.</span>
-                    </div>
-                </div>
-            </div>
-            <div class="input-card">
-                <h2>Adicional Noturno</h2>
-                <div class="input-group">
-                    <label for="nightShiftHours">Horas Noturnas</label>
-                    <input type="text" id="nightShiftHours" placeholder="Ex: 20" inputmode="decimal">
-                </div>
-                <div class="input-group">
-                    <label for="nightOvertimeHours">Horas Extras Noturnas</label>
-                    <input type="text" id="nightOvertimeHours" placeholder="Ex: 5" inputmode="decimal">
-                </div>
-                <div class="input-group">
-                    <label for="nightShiftPercentage">Percentual Ad. Noturno (%)</label>
-                    <input type="text" id="nightShiftPercentage" value="20" inputmode="decimal">
-                    <div class="tooltip-icon">i
-                        <span class="tooltip-text">O padrão CLT é 20%. Este percentual é aplicado sobre o valor da hora normal para calcular o adicional noturno e a hora extra noturna.</span>
-                    </div>
-                </div>
-            </div>
+        <!-- NAVEGAÇÃO POR ABAS -->
+        <div class="tab-nav">
+            <button class="tab-btn active" data-tab="monthly">Salário Mensal</button>
+            <button class="tab-btn" data-tab="vacation">Férias</button>
+            <button class="tab-btn" data-tab="thirteenth">13º Salário</button>
         </div>
 
-        <!-- Card para Bonificação -->
-        <div class="inputs-grid" style="grid-template-columns: 1fr;">
-            <div class="input-card">
-                <h2>Bonificação (Exemplo)</h2>
-                <div class="inputs-grid">
+        <!-- ABA: SALÁRIO MENSAL -->
+        <div class="tab-content active" id="monthly">
+            <!-- Card para Jornada de Trabalho -->
+            <div class="inputs-grid" style="grid-template-columns: 1fr;">
+                <div class="input-card">
+                    <h2>Jornada de Trabalho</h2>
                     <div class="input-group">
-                        <label for="trainingValue">Valor Total do Treinamento (R$)</label>
-                        <input type="text" id="trainingValue" placeholder="Ex: 2000.00" inputmode="decimal">
-                    </div>
-                    <div class="input-group">
-                        <label for="trainingDuration">Duração Total do Treinamento (h)</label>
-                        <input type="text" id="trainingDuration" placeholder="Ex: 4" inputmode="decimal">
-                    </div>
-                    <div class="input-group">
-                        <label for="trainingHoursGiven">Suas Horas de Treinamento (h)</label>
-                        <input type="text" id="trainingHoursGiven" placeholder="Ex: 2" inputmode="decimal">
+                        <label for="workload">Selecione sua carga horária mensal</label>
+                        <select id="workload">
+                            <option value="220">44h semanais (Divisor 220)</option>
+                            <option value="200">40h semanais (Divisor 200)</option>
+                            <option value="180">36h semanais (Divisor 180)</option>
+                            <option value="150">30h semanais (Divisor 150)</option>
+                            <option value="120">24h semanais (Divisor 120)</option>
+                        </select>
                         <div class="tooltip-icon">i
-                            <span class="tooltip-text">Exemplo de bonificação: 10% sobre o valor/hora do treinamento. Este valor é somado ao bruto, mas não incide no cálculo do DSR.</span>
+                            <span class="tooltip-text" id="workloadTooltip">O 'divisor' é usado para calcular o valor da sua hora (Salário / Divisor).</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Card para Descontos Adicionais -->
-        <div class="inputs-grid" style="grid-template-columns: 1fr;">
-            <div class="input-card">
-                <h2>Descontos Adicionais</h2>
-                <div class="input-group">
-                    <label for="healthInsurance">Convênio Médico (R$)</label>
-                    <input type="text" id="healthInsurance" placeholder="Ex: 150.00" inputmode="decimal">
-                </div>
-                <div id="otherDiscountsContainer"></div>
-                <button id="addDiscountBtn" class="add-btn">+ Adicionar Outro Desconto</button>
-            </div>
-        </div>
-        
-        <!-- Card para Apuração do Mês -->
-        <div class="inputs-grid" style="grid-template-columns: 1fr;">
-            <div class="input-card">
-                <h2>Apuração Mensal (para cálculo do DSR)</h2>
-                <div class="inputs-grid">
+
+            <!-- Seção de Entradas -->
+            <div class="inputs-grid">
+                <div class="input-card">
+                    <h2>Vencimentos</h2>
                     <div class="input-group">
-                        <label for="workingDays">Dias Úteis (seg. a sáb.)</label>
-                        <input type="text" id="workingDays" placeholder="Ex: 25" inputmode="decimal">
-                        <div class="tooltip-icon">i
-                            <span class="tooltip-text">DSR (Descanso Semanal Remunerado) é o reflexo das verbas variáveis (horas extras, adicional noturno) nos seus dias de folga.</span>
+                        <label for="baseSalary">Salário Base (R$)</label>
+                        <input type="text" id="baseSalary" placeholder="Ex: 3000.00" inputmode="decimal">
+                    </div>
+                    <div class="input-group">
+                        <label for="overtimeHours">Horas Extras Diurnas</label>
+                        <input type="text" id="overtimeHours" placeholder="Ex: 10" inputmode="decimal">
+                    </div>
+                     <div class="input-group">
+                        <label for="overtimePercentage">Percentual Hora Extra (%)</label>
+                        <input type="text" id="overtimePercentage" value="75" inputmode="decimal">
+                         <div class="tooltip-icon">i
+                            <span class="tooltip-text">Mínimo de 50% por lei. Verifique o valor usado pela sua empresa.</span>
                         </div>
                     </div>
+                </div>
+                <div class="input-card">
+                    <h2>Adicional Noturno</h2>
                     <div class="input-group">
-                        <label for="sundaysAndHolidays">Domingos e Feriados</label>
-                        <input type="text" id="sundaysAndHolidays" placeholder="Ex: 5" inputmode="decimal">
+                        <label for="nightShiftHours">Horas Noturnas</label>
+                        <input type="text" id="nightShiftHours" placeholder="Ex: 20" inputmode="decimal">
+                    </div>
+                    <div class="input-group">
+                        <label for="nightOvertimeHours">Horas Extras Noturnas</label>
+                        <input type="text" id="nightOvertimeHours" placeholder="Ex: 5" inputmode="decimal">
+                    </div>
+                    <div class="input-group">
+                        <label for="nightShiftPercentage">Percentual Ad. Noturno (%)</label>
+                        <input type="text" id="nightShiftPercentage" value="20" inputmode="decimal">
+                        <div class="tooltip-icon">i
+                            <span class="tooltip-text">O padrão CLT é 20%.</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-
-        <!-- Seção de Resultados -->
-        <div class="results-section">
-            <h2>Resultado do Cálculo</h2>
-            <div class="result-grid">
-                <div class="result-item">
-                    <p class="label">Salário Base</p>
-                    <p id="grossSalaryResult" class="value">R$ 0,00</p>
-                </div>
-                <div class="result-item">
-                    <p class="label">Total Vencimentos</p>
-                    <p id="totalEarningsResult" class="value">R$ 0,00</p>
-                </div>
-                <div class="result-item">
-                    <p class="label desconto">Total Descontos</p>
-                    <p id="totalDiscountsResult" class="value desconto">R$ 0,00</p>
+            <!-- Card para Comissão -->
+            <div class="inputs-grid" style="grid-template-columns: 1fr;">
+                <div class="input-card">
+                    <h2>Comissão (Exemplo)</h2>
+                    <div class="inputs-grid">
+                        <div class="input-group">
+                            <label for="trainingValue">Valor Total do Treinamento (R$)</label>
+                            <input type="text" id="trainingValue" placeholder="Ex: 2000.00" inputmode="decimal">
+                        </div>
+                        <div class="input-group">
+                            <label for="trainingDuration">Duração Total do Treinamento (h)</label>
+                            <input type="text" id="trainingDuration" placeholder="Ex: 4" inputmode="decimal">
+                        </div>
+                        <div class="input-group">
+                            <label for="trainingHoursGiven">Suas Horas de Treinamento (h)</label>
+                            <input type="text" id="trainingHoursGiven" placeholder="Ex: 2" inputmode="decimal">
+                            <div class="tooltip-icon">i
+                                <span class="tooltip-text">Exemplo de comissão: 10% sobre o valor/hora do treinamento. Este valor incide no cálculo do DSR.</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="net-salary-highlight">
-                <p class="label">SALÁRIO LÍQUIDO</p>
-                <p id="netSalaryResult" class="value">R$ 0,00</p>
+            
+            <!-- Card para Descontos Adicionais -->
+            <div class="inputs-grid" style="grid-template-columns: 1fr;">
+                <div class="input-card">
+                    <h2>Descontos Adicionais</h2>
+                    <div class="input-group">
+                        <label for="healthInsurance">Convênio Médico (R$)</label>
+                        <input type="text" id="healthInsurance" placeholder="Ex: 150.00" inputmode="decimal">
+                    </div>
+                    <div id="otherDiscountsContainer"></div>
+                    <button id="addDiscountBtn" class="add-btn">+ Adicionar Outro Desconto</button>
+                </div>
+            </div>
+            
+            <!-- Card para Apuração do Mês -->
+            <div class="inputs-grid" style="grid-template-columns: 1fr;">
+                <div class="input-card">
+                    <h2>Apuração Mensal (para cálculo do DSR)</h2>
+                    <div class="inputs-grid">
+                        <div class="input-group">
+                            <label for="workingDays">Dias Úteis (seg. a sáb.)</label>
+                            <input type="text" id="workingDays" placeholder="Ex: 25" inputmode="decimal">
+                            <div class="tooltip-icon">i
+                                <span class="tooltip-text">DSR é o reflexo das verbas variáveis (horas extras, etc.) nos dias de folga.</span>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="sundaysAndHolidays">Domingos e Feriados</label>
+                            <input type="text" id="sundaysAndHolidays" placeholder="Ex: 5" inputmode="decimal">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Resultados -->
+            <div class="results-section">
+                <h2>Resultado do Cálculo Mensal</h2>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <p class="label">Total Vencimentos</p>
+                        <p id="totalEarningsResult" class="value">R$ 0,00</p>
+                    </div>
+                    <div class="result-item">
+                        <p class="label desconto">INSS</p>
+                        <p id="inssResult" class="value desconto">R$ 0,00</p>
+                    </div>
+                    <div class="result-item">
+                        <p class="label desconto">IRRF</p>
+                        <p id="irrfResult" class="value desconto">R$ 0,00</p>
+                    </div>
+                    <div class="result-item">
+                        <p class="label desconto">Total Descontos</p>
+                        <p id="totalDiscountsResult" class="value desconto">R$ 0,00</p>
+                    </div>
+                </div>
+                <div class="net-salary-highlight">
+                    <p class="label">SALÁRIO LÍQUIDO</p>
+                    <p id="netSalaryResult" class="value">R$ 0,00</p>
+                </div>
+                <div class="report-button-container">
+                    <button id="exportMonthlyBtn" class="action-btn export-btn">Exportar Planilha</button>
+                    <button id="generateReportBtn" class="action-btn generate-btn">Gerar Resumo Mensal</button>
+                </div>
             </div>
         </div>
-        
-        <!-- Botões de Ação -->
+
+        <!-- ABA: FÉRIAS -->
+        <div class="tab-content" id="vacation">
+            <div class="inputs-grid">
+                <div class="input-card">
+                    <h2>Dados para Cálculo de Férias</h2>
+                    <div class="input-group">
+                        <label for="vacationDays">Dias de Férias</label>
+                        <select id="vacationDays">
+                            <option value="30">30 dias</option>
+                            <option value="20">20 dias</option>
+                            <option value="10">10 dias</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Média de Verbas Variáveis (Automático)</label>
+                        <div id="variableAverageDisplay" class="auto-value-display">R$ 0,00</div>
+                        <div class="tooltip-icon">i
+                            <span class="tooltip-text">Este valor é calculado automaticamente com base nos vencimentos variáveis (HE, Ad. Noturno) informados na aba "Salário Mensal".</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="results-section">
+                <h2>Resultado da Simulação de Férias</h2>
+                <div class="result-grid-vacation">
+                    <div class="result-card">
+                        <h3>Valor a Receber pelas Férias</h3>
+                        <div id="vacationPaymentDetails"></div>
+                    </div>
+                    <div class="result-card">
+                        <h3>Salário no Mês de Retorno</h3>
+                        <div id="postVacationPaymentDetails"></div>
+                    </div>
+                </div>
+                <div class="report-button-container">
+                    <button id="exportVacationBtn" class="action-btn export-btn" disabled>Exportar Planilha</button>
+                    <button id="generateVacationReportBtn" class="action-btn generate-btn">Gerar Resumo de Férias</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABA: 13º SALÁRIO -->
+        <div class="tab-content" id="thirteenth">
+            <div class="inputs-grid">
+                <div class="input-card">
+                    <h2>Dados para Cálculo do 13º</h2>
+                    <div class="input-group">
+                        <label for="monthsWorked">Meses Trabalhados no Ano</label>
+                        <select id="monthsWorked">
+                            <option value="1">1 mês</option>
+                            <option value="2">2 meses</option>
+                            <option value="3">3 meses</option>
+                            <option value="4">4 meses</option>
+                            <option value="5">5 meses</option>
+                            <option value="6">6 meses</option>
+                            <option value="7">7 meses</option>
+                            <option value="8">8 meses</option>
+                            <option value="9">9 meses</option>
+                            <option value="10">10 meses</option>
+                            <option value="11">11 meses</option>
+                            <option value="12" selected>12 meses</option>
+                        </select>
+                        <div class="tooltip-icon">i
+                            <span class="tooltip-text">Informe o número de meses trabalhados no ano (considera-se um mês se trabalhou mais de 15 dias).</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="results-section">
+                <h2>Resultado da Simulação do 13º Salário</h2>
+                <div class="result-grid-vacation">
+                    <div class="result-card">
+                        <h3>1ª Parcela (Adiantamento)</h3>
+                        <div id="thirteenthFirstInstallment"></div>
+                    </div>
+                    <div class="result-card">
+                        <h3>2ª Parcela (Pagamento Final)</h3>
+                        <div id="thirteenthSecondInstallment"></div>
+                    </div>
+                </div>
+                <div class="net-salary-highlight">
+                    <p class="label">TOTAL LÍQUIDO 13º SALÁRIO</p>
+                    <p id="thirteenthTotalNet" class="value">R$ 0,00</p>
+                </div>
+                 <div class="report-button-container">
+                    <button id="export13thBtn" class="action-btn export-btn" disabled>Exportar Planilha</button>
+                    <button id="generate13thReportBtn" class="action-btn generate-btn">Gerar Resumo do 13º</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botão de Ação Global -->
         <div class="report-button-container">
             <button id="clearFieldsBtn" class="action-btn clear-btn">Limpar Campos</button>
-            <button id="generateReportBtn" class="action-btn generate-btn">Gerar Resumo (Holerite)</button>
         </div>
 
     </div>
 
-    <!-- Modal do Holerite -->
-    <div id="reportModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Resumo do Cálculo</h2>
-                <button id="closeModalBtn" class="modal-close-btn">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="report-grid">
-                    <div class="report-section">
-                        <h3>Vencimentos</h3>
-                        <div id="reportEarningsContainer"></div>
-                    </div>
-                    <div class="report-section">
-                        <h3>Descontos</h3>
-                        <div id="reportDiscountsContainer"></div>
-                    </div>
-                </div>
-                 <div class="report-grid">
-                    <div class="report-section">
-                        <h3>Bases de Cálculo</h3>
-                        <div class="report-line">
-                            <span class="label">Total Vencimentos</span>
-                            <span id="reportGrossSalary" class="value vencimento"></span>
-                        </div>
-                        <div class="report-line">
-                            <span class="label">Total Descontos</span>
-                            <span id="reportTotalDiscounts" class="value desconto"></span>
-                        </div>
-                    </div>
-                    <div class="report-section">
-                        <h3>Informações Adicionais</h3>
-                        <div class="report-line">
-                            <span class="label">Carga Horária</span>
-                            <span id="reportWorkload" class="value"></span>
-                        </div>
-                        <div class="report-line">
-                            <span class="label">Qtd. HE Diurnas</span>
-                            <span id="reportOvertimeHours" class="value"></span>
-                        </div>
-                        <div class="report-line">
-                            <span class="label">Qtd. HE Noturnas</span>
-                            <span id="reportNightOvertimeHours" class="value"></span>
-                        </div>
-                         <div class="report-line">
-                            <span class="label">Valor Hora Normal</span>
-                            <span id="reportHourlyRate" class="value"></span>
-                        </div>
-                         <div class="report-line">
-                            <span class="label">Valor HE Diurna</span>
-                            <span id="reportOvertimeRate" class="value"></span>
-                        </div>
-                         <div class="report-line">
-                            <span class="label">Valor HE Noturna</span>
-                            <span id="reportNightOvertimeRate" class="value"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="report-section" style="grid-column: 1 / -1;">
-                    <h3>Enquadramento de Impostos</h3>
-                    <div class="report-line">
-                        <span class="label">Faixa INSS</span>
-                        <span id="reportInssBracket" class="value"></span>
-                    </div>
-                    <div class="report-line">
-                        <span class="label">Faixa IRRF</span>
-                        <span id="reportIrrfBracket" class="value"></span>
-                    </div>
-                </div>
-                <div class="report-footer">
-                    <div class="total-line">
-                        <span>Valor Líquido a Receber: </span>
-                        <span id="reportNetSalary"></span>
-                    </div>
-                    <div class="actions">
-                        <button id="printReportBtn">Imprimir / Salvar como PDF</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Modals -->
+    <div id="reportModal" class="modal-overlay"></div>
+    <div id="vacationReportModal" class="modal-overlay"></div>
+    <div id="thirteenthReportModal" class="modal-overlay"></div>
     
     <footer class="page-footer">
         Desenvolvido por João Murat, 2025.
