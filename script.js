@@ -653,3 +653,27 @@ document.addEventListener('DOMContentLoaded', () => {
     calculateVacation();
     calculate13th();
 });
+// --- EVENT LISTENERS ---
+document.addEventListener('DOMContentLoaded', () => {
+    // ... (todo o seu código JS existente dentro deste bloco) ...
+
+    // Listener para o formulário de contato
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Impede o envio padrão do formulário
+
+        // IMPORTANTE: Substitua 'seu-email@example.com' pelo seu endereço de e-mail.
+        const recipientEmail = 'seu-email@example.com'; 
+        
+        const name = document.getElementById('contactName').value;
+        const subject = document.getElementById('contactSubject').value;
+        const message = document.getElementById('contactMessage').value;
+
+        // Cria o corpo do e-mail
+        const body = `Nome: ${name}%0D%0A%0D%0AMensagem:%0D%0A${message}`;
+
+        // Cria o link mailto e abre o cliente de e-mail do usuário
+        const mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        
+        window.location.href = mailtoLink;
+    });
+});

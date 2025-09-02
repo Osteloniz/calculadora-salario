@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Salário Completa</title>
-    <!-- Link para a fonte do Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Link para o arquivo de estilos CSS externo -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,25 +12,21 @@
     <div class="container">
         
         <div class="header">
-            <h1>Calculadora de Salário Completa</h1>
-            <p>Simule seu salário, férias e 13º de forma detalhada.</p>
+            <h1>Calculadora de Salário</h1>
+            <p>Simule seu salário do mês e tenha uma base dos descontos.</p>
         </div>
 
-        <!-- AVISO DE SIMULAÇÃO -->
         <div class="disclaimer">
             <strong>Atenção:</strong> Todos os valores apresentados são uma <strong>simulação</strong>. As regras podem variar conforme acordos sindicais. Consulte sempre seu holerite oficial.
         </div>
 
-        <!-- NAVEGAÇÃO POR ABAS -->
         <div class="tab-nav">
             <button class="tab-btn active" data-tab="monthly">Salário Mensal</button>
-            <button class="tab-btn" data-tab="vacation">Férias</button>
-            <button class="tab-btn" data-tab="thirteenth">13º Salário</button>
-        </div>
+            <button class="tab-btn" data-tab="vacation" disabled >Férias</button>
+            <button class="tab-btn" data-tab="thirteenth" disabled >13º Salário</button>
+            </div>
 
-        <!-- ABA: SALÁRIO MENSAL -->
         <div class="tab-content active" id="monthly">
-            <!-- Card para Jornada de Trabalho -->
             <div class="inputs-grid" style="grid-template-columns: 1fr;">
                 <div class="input-card">
                     <h2>Jornada de Trabalho</h2>
@@ -52,7 +46,6 @@
                 </div>
             </div>
 
-            <!-- Seção de Entradas -->
             <div class="inputs-grid">
                 <div class="input-card">
                     <h2>Vencimentos</h2>
@@ -92,7 +85,6 @@
                 </div>
             </div>
 
-            <!-- Card para Comissão -->
             <div class="inputs-grid" style="grid-template-columns: 1fr;">
                 <div class="input-card">
                     <h2>Comissão (Exemplo)</h2>
@@ -116,7 +108,6 @@
                 </div>
             </div>
             
-            <!-- Card para Descontos Adicionais -->
             <div class="inputs-grid" style="grid-template-columns: 1fr;">
                 <div class="input-card">
                     <h2>Descontos Adicionais</h2>
@@ -129,7 +120,6 @@
                 </div>
             </div>
             
-            <!-- Card para Apuração do Mês -->
             <div class="inputs-grid" style="grid-template-columns: 1fr;">
                 <div class="input-card">
                     <h2>Apuração Mensal (para cálculo do DSR)</h2>
@@ -149,7 +139,6 @@
                 </div>
             </div>
 
-            <!-- Seção de Resultados -->
             <div class="results-section">
                 <h2>Resultado do Cálculo Mensal</h2>
                 <div class="result-grid">
@@ -181,7 +170,6 @@
             </div>
         </div>
 
-        <!-- ABA: FÉRIAS -->
         <div class="tab-content" id="vacation">
             <div class="inputs-grid">
                 <div class="input-card">
@@ -222,7 +210,6 @@
             </div>
         </div>
 
-        <!-- ABA: 13º SALÁRIO -->
         <div class="tab-content" id="thirteenth">
             <div class="inputs-grid">
                 <div class="input-card">
@@ -272,20 +259,41 @@
             </div>
         </div>
 
-        <!-- Botões de Ação Globais -->
         <div class="report-button-container">
             <button id="clearFieldsBtn" class="action-btn clear-btn">Limpar Campos</button>
         </div>
 
     </div>
 
-    <!-- Modals -->
+    <div class="container contact-section">
+        <h2>Contato e Sugestões</h2>
+        <p>Encontrou algum problema ou tem uma sugestão para melhorar a calculadora? Envie uma mensagem!</p>
+        <form id="contactForm">
+            <div class="input-group">
+                <label for="contactName">Seu Nome</label>
+                <input type="text" id="contactName" required>
+            </div>
+            <div class="input-group">
+                <label for="contactSubject">Assunto</label>
+                <input type="text" id="contactSubject" required>
+            </div>
+            <div class="input-group">
+                <label for="contactMessage">Sua Mensagem</label>
+                <textarea id="contactMessage" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="action-btn generate-btn" style="width: 100%;">Enviar Sugestão</button>
+        </form>
+    </div>
+
     <div id="reportModal" class="modal-overlay"></div>
     <div id="vacationReportModal" class="modal-overlay"></div>
     <div id="thirteenthReportModal" class="modal-overlay"></div>
     
     <footer class="page-footer">
-        Desenvolvido por João Murat, 2025.
+        <p>Desenvolvido por João Murat, 2025.</p>
+        <div class="footer-links">
+            <a href="politica-de-privacidade.html">Política de Privacidade</a> | <a href="termos-de-uso.html">Termos de Uso</a>
+        </div>
     </footer>
     
     <script src="script.js"></script>
