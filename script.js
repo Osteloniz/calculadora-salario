@@ -662,7 +662,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault(); // Impede o envio padrão do formulário
 
         // IMPORTANTE: Substitua 'seu-email@example.com' pelo seu endereço de e-mail.
-        const recipientEmail = 'seu-email@example.com'; 
+        const recipientEmail = 'capivara.maislinda@gmail.com'; 
         
         const name = document.getElementById('contactName').value;
         const subject = document.getElementById('contactSubject').value;
